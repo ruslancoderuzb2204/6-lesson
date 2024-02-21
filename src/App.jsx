@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "./slice/counterSlice";
+import { increment, decrement, reset } from "./slice/counterSlice";
 
 const App = () => {
   const counter = useSelector((state) => state.counter);
@@ -19,6 +19,7 @@ const App = () => {
       dispatch(decrement());
     }
   };
+
   const handleIncrement1 = () => {
     if (!subs1) {
       dispatch(increment());
@@ -31,52 +32,73 @@ const App = () => {
     }
   };
 
+  const handleReset = () => {
+    dispatch(reset());
+  };
+
   return (
     <div className="flex justify-around container w-full mx-auto bg-gray-100">
       <div className="flex flex-col items-center justify-center min-h-screen ">
-        <h1 className="text-4xl font-bold mb-4">Counter: {counter}</h1>
-        <div className="flex space-x-4">
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={handleIncrement}
-          >
-            +
-          </button>
-          <button
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            onClick={handleDecrement}
-          >
-            -
-          </button>
-          <button
-            className="px-4 block py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            onClick={() => setSubs(!subs)}
-          >
-            UnSubs
-          </button>
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <h1 className="text-4xl font-bold mb-4">Counter: {counter}</h1>
+          <div className="flex flex-col justify-center w-full gap-3 ">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={handleIncrement}
+            >
+              +
+            </button>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              onClick={handleDecrement}
+            >
+              -
+            </button>
+
+            <button
+              className={`px-4 py-2 ${
+                !subs ? "bg-green-500" : "bg-slate-400"
+              } text-white rounded hover:bg-green-600`}
+              onClick={() => setSubs(!subs)}
+            >
+              {!subs ? "UnSubscribe" : "Subscribe"}
+            </button>
+          </div>
         </div>
       </div>
+      <div className="my-auto">
+        <button
+          className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
+      </div>
       <div className="flex flex-col items-center justify-center min-h-screen ">
-        <h1 className="text-4xl font-bold mb-4">Counter: {counter}</h1>
-        <div className="flex space-x-4">
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={handleIncrement1}
-          >
-            +
-          </button>
-          <button
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            onClick={handleDecrement1}
-          >
-            -
-          </button>
-          <button
-            className="px-4 block py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            onClick={() => setSubs1(!subs1)}
-          >
-            UnSubs
-          </button>
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <h1 className="text-4xl font-bold mb-4">Counter: {counter}</h1>
+          <div className="flex flex-col justify-center w-full gap-3">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={handleIncrement1}
+            >
+              +
+            </button>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              onClick={handleDecrement1}
+            >
+              -
+            </button>
+            <button
+              className={`px-4 py-2 ${
+                !subs1 ? "bg-green-500" : "bg-slate-400"
+              } text-white rounded hover:bg-green-600`}
+              onClick={() => setSubs1(!subs1)}
+            >
+              {!subs1 ? "UnSubscribe" : "Subscribe"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
